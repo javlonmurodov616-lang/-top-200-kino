@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Top 200 eng zo'r kinolar - dunyoning eng yaxshi filmlari reytingi">
+    <title>Top 200 eng zo'r kinolar</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Kinoteatr foni: projektor nurlari, chang zarralari, vignette -->
+    <div class="cinema-bg" aria-hidden="true">
+        <div class="cinema-beam beam-a"></div>
+        <div class="cinema-beam beam-b"></div>
+        <div class="cinema-beam beam-c"></div>
+        <i class="cinema-particle" style="left:14%; top:38%; animation-delay:0s"></i>
+        <i class="cinema-particle" style="left:28%; top:70%; animation-delay:2.4s"></i>
+        <i class="cinema-particle" style="left:43%; top:22%; animation-delay:5.1s"></i>
+        <i class="cinema-particle" style="left:58%; top:64%; animation-delay:3.2s"></i>
+        <i class="cinema-particle" style="left:72%; top:30%; animation-delay:7.6s"></i>
+        <i class="cinema-particle" style="left:85%; top:55%; animation-delay:1.3s"></i>
+        <i class="cinema-particle" style="left:36%; top:88%; animation-delay:6.4s"></i>
+        <i class="cinema-particle" style="left:66%; top:82%; animation-delay:4.8s"></i>
+    </div>
+    <div class="cinema-vignette" aria-hidden="true"></div>
+    <div class="cinema-grain" aria-hidden="true"></div>
+
+    <!-- Intro / kirish animatsiyasi -->
+    <div id="intro" class="intro">
+        <div class="intro-content">
+            <h1 class="intro-title">TOP <span>200</span></h1>
+            <p class="intro-sub">eng zo'r kinolar</p>
+        </div>
+    </div>
+
+    <!-- Sarlavha -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-badge">T200</span>
+                <div class="logo-text">
+                    <h1>Top 200 <em>eng zo'r kinolar</em></h1>
+                </div>
+            </div>
+
+            <div class="controls">
+                <!-- Qidiruv maydoni -->
+                <div class="search-wrap">
+                    <input type="text" id="search" class="search-input" placeholder="Kino nomini qidiring..." autocomplete="off">
+                </div>
+
+                <!-- Janr filtr tugmalari -->
+                <div class="genre-filters" id="genreFilters">
+                    <button class="filter-btn active" data-genre="all">Barchasi</button>
+                    {{range .Genres}}
+                    <button class="filter-btn" data-genre="{{.}}">{{.}}</button>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Asosiy qism -->
+    <main class="container">
+        <div class="result-info" id="resultInfo"></div>
+
+        <!-- Kinolar to'ri -->
+        <section class="grid" id="grid">
+            {{range .Movies}}
+            <article class="card"
+                     data-rank="{{.Rank}}"
+                     data-genre="{{.Genre | join ","}}"
+                     tabindex="0"
+                     role="button"
+                     aria-label="{{.Title}} haqida ma'lumot">
+                <div class="poster">
+                    <img src="{{.Poster}}" alt="{{.Title}}" loading="lazy"
+                         onerror="posterFallback(this)">
+                    <span class="rank-badge">{{.Rank}}</span>
+                    <span class="rating-badge">★ {{printf "%.1f" .Rating}}</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">{{.Title}}</h3>
+                    <div class="card-meta">
+                        <span>{{.Year}}</span>
+                        <span class="dot">•</span>
+                        <span>{{.Genre | join ", "}}</span>
+                    </div>
+                    <p class="card-desc">{{.Description}}</p>
+                </div>
+            </article>
+            {{end}}
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Top 200 eng zo'r kinolar &mdash; Go + HTML/CSS/JS bilan yaratilgan</p>
+    </footer>
+
+    <!-- Modal oyna -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="modal-close" id="modalClose" aria-label="Yopish">&times;</button>
+        <div class="modal-inner">
+            <div class="modal-poster">
+                <img id="modalPoster" src="" alt="" onerror="posterFallback(this)">
+            </div>
+            <div class="modal-info">
+                <span class="modal-rank" id="modalRank"></span>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-meta">
+                    <span id="modalYear"></span>
+                    <span class="dot">•</span>
+                    <span id="modalGenre"></span>
+                    <span class="dot">•</span>
+                    <span id="modalDuration"></span>
+                </div>
+                <div class="modal-rating">
+                    <span class="stars" id="modalStars"></span>
+                    <span class="rating-num" id="modalRating"></span>
+                </div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-director">
+                    <strong>Rejissyor:</strong> <span id="modalDirector"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kino ma'lumotlari JavaScript uchun (filter, qidiruv, modal) -->
+    <script>var MOVIES = {{.DataJS}};</script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Go
+*.exe
+*.test
+Gopkg.lock
+vendor/
+
+# Render / deploy
+.prod.env
+.env
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
