@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: top200-kino
+    runtime: go
+    plan: free
+    buildCommand: go build -o top200 .
+    startCommand: ./top200
+    healthCheckPath: /
+    envVars:
+      - key: GO_VERSION
+        value: "1.26"
