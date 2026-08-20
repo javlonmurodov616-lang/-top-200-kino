@@ -193,16 +193,6 @@
         document.getElementById('modalDesc').textContent = movie.description;
         document.getElementById('modalDirector').textContent = movie.director;
 
-        // Kinoni ko'rish tugmasi (o'zbek tilidagi kino saytiga)
-        var watchBtn = document.getElementById('modalWatch');
-        if (movie.watch) {
-            watchBtn.href = movie.watch;
-            watchBtn.classList.remove('watch-hidden');
-        } else {
-            watchBtn.href = '#';
-            watchBtn.classList.add('watch-hidden');
-        }
-
         var poster = document.getElementById('modalPoster');
         poster.dataset.fallback = '';
         poster.classList.remove('poster-fallback');

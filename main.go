@@ -17,7 +17,6 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"sort"
 	"strings"
@@ -40,7 +39,6 @@ type Movie struct {
 	Description string   `json:"description"` // Qisqa tavsifi (karta va modalda)
 	Poster      string   `json:"poster"`      // Poster URL (agar yuklanmasa, avtomatik fallback)
 	Original    string   `json:"original"`    // Asl (inglizcha) nomi
-	Watch       string   `json:"watch"`       // O'zbek tilidagi kino saytiga qidiruv linki (hisoblab chiqiladi)
 }
 
 // PageData - html/template'ga uzatiladigan barcha ma'lumotlar.
@@ -74,11 +72,9 @@ func main() {
 		log.Fatalf("data/movies.json ni o'qishda xato: %v", err)
 	}
 
-	// 2) O'rinni JSON tartibiga qarab beramiz (1 dan 200 gacha) va
-	//    har kino uchun o'zbek tilidagi kino saytiga qidiruv linki
+	// 2) O'rinni JSON tartibiga qarab beramiz (1 dan 200 gacha)
 	for i := range movies {
 		movies[i].Rank = i + 1
-		movies[i].Watch = "https://uzbeklar.biz/?do=search&subaction=search&story=" + url.QueryEscape(movies[i].Title)
 	}
 
 	// 3) Janrlar ro'yxatini yig'amiz (filtrlash tugmalari uchun)

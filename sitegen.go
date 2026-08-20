@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"html/template"
 	"log"
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -25,7 +24,6 @@ type Movie struct {
 	Description string   `json:"description"`
 	Poster      string   `json:"poster"`
 	Original    string   `json:"original"`
-	Watch       string   `json:"watch"`
 }
 
 type PageData struct {
@@ -48,7 +46,6 @@ func main() {
 	}
 	for i := range movies {
 		movies[i].Rank = i + 1
-		movies[i].Watch = "https://uzbeklar.biz/?do=search&subaction=search&story=" + url.QueryEscape(movies[i].Title)
 	}
 
 	genreSet := map[string]bool{}
