@@ -48,7 +48,7 @@ func main() {
 	}
 	for i := range movies {
 		movies[i].Rank = i + 1
-		movies[i].Watch = "https://www.imdb.com/find/?q=" + url.QueryEscape(movies[i].Original) + "&s=tt&ttype=ft"
+		movies[i].Watch = "https://uzbeklar.biz/?do=search&subaction=search&story=" + url.QueryEscape(movies[i].Title)
 	}
 
 	genreSet := map[string]bool{}

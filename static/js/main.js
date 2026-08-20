@@ -184,6 +184,7 @@
 
         document.getElementById('modalRank').textContent = '#' + movie.rank;
         document.getElementById('modalTitle').textContent = movie.title;
+        document.getElementById('modalOrig').textContent = movie.original;
         document.getElementById('modalYear').textContent = movie.year;
         document.getElementById('modalGenre').textContent = movie.genre.join(', ');
         document.getElementById('modalDuration').textContent = movie.duration;
@@ -192,7 +193,7 @@
         document.getElementById('modalDesc').textContent = movie.description;
         document.getElementById('modalDirector').textContent = movie.director;
 
-        // Kinoni ko'rish tugmasi (IMDb qidiruvi)
+        // Kinoni ko'rish tugmasi (o'zbek tilidagi kino saytiga)
         var watchBtn = document.getElementById('modalWatch');
         if (movie.watch) {
             watchBtn.href = movie.watch;
