@@ -17,6 +17,7 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"sort"
 	"strings"
@@ -38,6 +39,8 @@ type Movie struct {
 	Director    string   `json:"director"`    // Rejissyori
 	Description string   `json:"description"` // Qisqa tavsifi (karta va modalda)
 	Poster      string   `json:"poster"`      // Poster URL (agar yuklanmasa, avtomatik fallback)
+	Original    string   `json:"original"`    // Asl (inglizcha) nomi - IMDb qidiruvi uchun
+	Watch       string   `json:"watch"`       // IMDb qidiruv linki (hisoblab chiqiladi)
 }
 
 // PageData - html/template'ga uzatiladigan barcha ma'lumotlar.
@@ -71,9 +74,11 @@ func main() {
 		log.Fatalf("data/movies.json ni o'qishda xato: %v", err)
 	}
 
-	// 2) O'rinni JSON tartibiga qarab beramiz (1 dan 50 gacha)
+	// 2) O'rinni JSON tartibiga qarab beramiz (1 dan 200 gacha) va
+	//    har kino uchun IMDb qidiruv linkini hisoblaymiz
 	for i := range movies {
 		movies[i].Rank = i + 1
+		movies[i].Watch = "https://www.imdb.com/find/?q=" + url.QueryEscape(movies[i].Original) + "&s=tt&ttype=ft"
 	}
 
 	// 3) Janrlar ro'yxatini yig'amiz (filtrlash tugmalari uchun)

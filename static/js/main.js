@@ -34,8 +34,8 @@
             // Fade tugagach intro elementni butunlay olib tashlaymiz
             setTimeout(function () {
                 if (intro.parentNode) intro.parentNode.removeChild(intro);
-            }, 900);
-        }, 1500);
+            }, 800);
+        }, 3800);
     }
 
     /* ------------------------------------------------------------------ */
@@ -191,6 +191,16 @@
         document.getElementById('modalRating').textContent = movie.rating.toFixed(1);
         document.getElementById('modalDesc').textContent = movie.description;
         document.getElementById('modalDirector').textContent = movie.director;
+
+        // Kinoni ko'rish tugmasi (IMDb qidiruvi)
+        var watchBtn = document.getElementById('modalWatch');
+        if (movie.watch) {
+            watchBtn.href = movie.watch;
+            watchBtn.classList.remove('watch-hidden');
+        } else {
+            watchBtn.href = '#';
+            watchBtn.classList.add('watch-hidden');
+        }
 
         var poster = document.getElementById('modalPoster');
         poster.dataset.fallback = '';

@@ -29,6 +29,15 @@
     box-sizing: border-box;
 }
 
+/* Shriftlar (premium serif - saytga o'rnatilgan, internet kerak emas) */
+@font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 700 800;
+    src: url('../fonts/playfair-700.woff2') format('woff2');
+    font-display: swap;
+}
+
 /* Kinoteatr foni (projektor nurlari, chang zarralari, vignette, grain) */
 .cinema-bg {
     position: fixed;
@@ -189,16 +198,139 @@ main.container {
     pointer-events: none;
 }
 
-.intro-content {
+/* Klapboard (tasma) qurilmasi */
+.intro-clap {
+    width: min(300px, 68vw);
+    position: relative;
+    z-index: 3;
+    filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.6));
+    animation: clapEntrance 3.6s ease both;
+}
+
+.clap-top {
+    height: 36px;
+    border-radius: 8px 8px 4px 4px;
+    background: repeating-linear-gradient(-45deg, #f4f4f0 0 18px, #101016 18px 36px);
+    border: 2px solid #2c2c3a;
+    transform-origin: left top;
+    z-index: 2;
+    position: relative;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.35);
+    animation: clapTop 3.6s ease both;
+}
+
+.clap-board {
+    height: 124px;
+    border-radius: 4px 4px 10px 10px;
+    background: #16161f;
+    border: 2px solid #2c2c3a;
+    border-top: none;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.clap-slate {
+    flex: none;
+    height: 58px;
+    border-radius: 6px;
+    background: repeating-linear-gradient(-45deg, #dedede 0 15px, #14141c 15px 30px);
+    border: 2px solid #3a3a4c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4px 14px;
+    box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.3);
+}
+
+.slate-line {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    color: rgba(10, 10, 16, 0.75);
+    font-weight: 700;
+}
+
+.slate-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: 3px;
+    color: #f5c518;
+    text-shadow: 0 0 14px rgba(245, 197, 24, 0.45);
+}
+
+.clap-stripes {
+    margin-top: 10px;
+    flex: 1;
+    border-radius: 6px 6px 4px 4px;
+    background: repeating-linear-gradient(-45deg, #101016 0 20px, #dcdce2 20px 40px);
+    border: 2px solid #3a3a4c;
+}
+
+@keyframes clapEntrance {
+    0%   { transform: translateY(-170px) scale(0.7); opacity: 0; }
+    14%  { transform: translateY(0) scale(1);        opacity: 1; }
+    18%  { transform: translateY(-14px); }
+    26%  { transform: translateY(0); }
+    30%  { transform: translateY(-7px); }
+    34%  { transform: translateY(0); }
+    66%  { transform: translateY(0) scale(1);        opacity: 1; }
+    76%  { transform: translateY(-55px) scale(0.95); }
+    78%  { transform: translateY(-55px);             opacity: 0; }
+    100% { transform: translateY(-70px);             opacity: 0; }
+}
+
+@keyframes clapTop {
+    0%   { transform: rotate(-12deg); }
+    30%  { transform: rotate(-12deg); }
+    38%  { transform: rotate(2deg); }
+    44%  { transform: rotate(-9deg); }
+    50%  { transform: rotate(0deg); }
+    70%  { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Intro matni (klapdan keyin chiqadi) */
+.intro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    width: 100%;
+    padding: 0 16px;
+    opacity: 0;
+    animation: textReveal 3.6s ease both;
+}
+
+.intro-welcome {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+    letter-spacing: 10px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 0 0 24px rgba(245, 197, 24, 0.25);
+    animation: welcomeAnim 3.6s ease both;
+}
+
+@keyframes welcomeAnim {
+    0%    { opacity: 0; letter-spacing: 18px; transform: translateY(10px); }
+    57%   { opacity: 0; letter-spacing: 18px; transform: translateY(10px); }
+    66%   { opacity: 1; letter-spacing: 10px; transform: translateY(0); }
+    80%   { opacity: 1; letter-spacing: 10px; }
+    92%   { opacity: 0; }
+    100%  { opacity: 0; }
 }
 
 .intro-title {
-    font-size: clamp(3.5rem, 12vw, 7.5rem);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 13vw, 8rem);
     font-weight: 800;
-    letter-spacing: 6px;
+    letter-spacing: 8px;
     color: #fff;
-    animation: introZoom 1s ease both;
+    text-shadow: 0 6px 28px rgba(0, 0, 0, 0.55);
 }
 
 .intro-title span {
@@ -206,37 +338,25 @@ main.container {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    filter: drop-shadow(0 0 18px rgba(229, 9, 20, 0.35));
 }
 
 .intro-sub {
-    margin-top: 10px;
+    margin-top: 12px;
+    font-family: 'Playfair Display', serif;
     font-size: clamp(1rem, 3vw, 1.5rem);
-    letter-spacing: 8px;
+    letter-spacing: 10px;
     text-transform: uppercase;
     color: var(--muted);
-    animation: introFade 1s 0.35s ease both;
 }
 
-@keyframes introZoom {
-    from {
-        opacity: 0;
-        transform: scale(1.35);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes introFade {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+@keyframes textReveal {
+    0%    { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    60%   { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+    70%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    88%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    96%   { opacity: 0; transform: translate(-50%, -54%) scale(1); }
+    100%  { opacity: 0; transform: translate(-50%, -54%) scale(1); }
 }
 
 /* ==========================================================================
@@ -703,6 +823,37 @@ main.container {
 
 .modal-director strong {
     color: var(--text);
+}
+
+.modal-watch {
+    margin-top: 20px;
+}
+
+.watch-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: var(--grad);
+    color: #140a06;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.watch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(229, 9, 20, 0.5);
+}
+
+.watch-btn:active {
+    transform: translateY(0);
+}
+
+.watch-hidden {
+    display: none;
 }
 
 /* ==========================================================================
