@@ -825,6 +825,37 @@ main.container {
     color: var(--text);
 }
 
+.modal-watch {
+    margin-top: 20px;
+}
+
+.watch-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: var(--grad);
+    color: #140a06;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(229, 9, 20, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.watch-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(229, 9, 20, 0.5);
+}
+
+.watch-btn:active {
+    transform: translateY(0);
+}
+
+.watch-hidden {
+    display: none;
+}
+
 /* ==========================================================================
    Footer
    ========================================================================== */
