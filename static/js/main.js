@@ -34,8 +34,8 @@
             // Fade tugagach intro elementni butunlay olib tashlaymiz
             setTimeout(function () {
                 if (intro.parentNode) intro.parentNode.removeChild(intro);
-            }, 900);
-        }, 1500);
+            }, 800);
+        }, 3800);
     }
 
     /* ------------------------------------------------------------------ */
